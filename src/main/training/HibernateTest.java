@@ -5,9 +5,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import training.model.Address;
 import training.model.UserDetails;
+import training.model.Vehicle;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 public class HibernateTest {
 
@@ -16,38 +18,26 @@ public class HibernateTest {
         UserDetails userDetails2 = new UserDetails();
         userDetails.setUserName("Third User");
         userDetails2.setUserName("Forth User");
-        Address addr = new Address();
-        addr.setCity("Kiev");
-        addr.setPincode("045352");
-        addr.setState("NU");
-        addr.setStreet("gdgh");
-        Address addr2 = new Address();
-        addr.setCity("Kiev2");
-        addr.setPincode("0453522");
-        addr.setState("NU2");
-        addr.setStreet("gdgh2");
 
-        userDetails.getListOfAddresses().add(addr);
-        userDetails.getListOfAddresses().add(addr2);
-
-        userDetails.setJoinedDate(new Date());
-       // userDetails.setAddress(addr);
-        userDetails.setDescription("description of the third user");
+        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setVehicleName("Car");
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.setVehicleName("Car2");
+        userDetails.getVehicle().add(vehicle1);
+        userDetails.getVehicle().add(vehicle2);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(userDetails);
-        session.save(userDetails2);
+        session.persist(userDetails);
+        session.persist(userDetails2);
         session.getTransaction().commit();
         session.close();
 
         userDetails = null;
-        new Object().hashCode();
 
-       session = sessionFactory.openSession();
+        session = sessionFactory.openSession();
        session.beginTransaction();
        userDetails = session.get(UserDetails.class, 1);
-        System.out.println("name is " + userDetails.getUserName());
     }
 }

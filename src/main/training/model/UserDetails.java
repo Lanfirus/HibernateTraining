@@ -1,23 +1,22 @@
 package training.model;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table (name = "USER_DETAILS")
 public class UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int userId;
     private String userName;
-    @Temporal(TemporalType.DATE)
-    private Date joinedDate;
-    private String description;
-    @ElementCollection
-    private Set<Address> listOfAddresses = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Vehicle> vehicle = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -36,28 +35,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Date getJoinedDate() {
-        return joinedDate;
+    public Collection<Vehicle> getVehicle() {
+        return vehicle;
     }
 
-    public void setJoinedDate(Date joinedDate) {
-        this.joinedDate = joinedDate;
-    }
-
-    @Lob
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Address> getListOfAddresses() {
-        return listOfAddresses;
-    }
-
-    public void setListOfAddresses(Set<Address> listOfAddresses) {
-        this.listOfAddresses = listOfAddresses;
+    public void setVehicle(Collection<Vehicle> vehicle) {
+        this.vehicle = vehicle;
     }
 }

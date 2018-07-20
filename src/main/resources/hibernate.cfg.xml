@@ -12,9 +12,10 @@
         <!--<property name="hibernate.current_session_context_class">thread</property>-->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
-        <property name="hbm2ddl.auto">create-drop</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <!--<mapping resource="book.hbm.xml" />-->
         <mapping class="training.model.UserDetails"/>
+        <mapping class="training.model.Vehicle"/>
     </session-factory>
 </hibernate-configuration>
